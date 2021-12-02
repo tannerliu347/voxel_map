@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <functional>
+#include <ostream>
 
 // placeholder Point definition
 typedef int FrameId;
@@ -10,6 +11,13 @@ struct Point {
     float y;
     float z;
     FrameId frameID;
+
+    Point(float xIn, float yIn, float zIn) : x(xIn), y(yIn), z(zIn) {}
+
+    friend std::ostream& operator<<(std::ostream& os, const Point& pt) {
+        os << "x: " << pt.x << ", y: " << pt.y << ", z: " << pt.z;
+        return os;
+    }
 };
 
 // used as hash key in voxelMap
@@ -20,6 +28,11 @@ struct VoxelCoord {
 
     bool operator==(const VoxelCoord& other) const {
         return (xc == other.xc && yc == other.yc && zc == other.zc);
+    }
+
+    friend std::ostream& operator<<(std::ostream& os, const VoxelCoord& vc) {
+        os << "x: " << vc.xc << ", y: " << vc.yc << ", z: " << vc.zc;
+        return os;
     }
 };
 

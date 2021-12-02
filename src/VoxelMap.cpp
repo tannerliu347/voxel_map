@@ -67,12 +67,12 @@ bool VoxelMap::query_point(Point pt, Voxel*& contained_voxel) {
 }
 
 std::vector<FrameId> VoxelMap::voxel_seen_frames(VoxelCoord q_vox) {
-    std::vector<FrameId> res;
+    std::unordered_set<FrameId> resSet;
     const std::vector<Point>& vxPts = vmap_[q_vox].voxPoints;
     for (const Point& p : vxPts) {
-        res.push_back(p.frameID);
+        resSet.insert(p.frameID);
     }
-    return res;
+    return std::vector<FrameId>(resSet.begin(), resSet.end());
 }
 
 size_t VoxelMap::size() {
